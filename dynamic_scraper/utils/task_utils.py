@@ -40,8 +40,8 @@ class TaskUtils(object):
 
     def _pending_jobs(self, spider):
         # Ommit scheduling new jobs if there are still pending jobs for same spider
-        resp = urllib.request.urlopen('http://{}:{}/listjobs.json?project=default'
-                             .format(self._scrapyd_hostname, self._scrapyd_port))
+        resp = urllib.request.urlopen('http://{}:{}/listjobs.json?project=default'.format(
+                                        self._scrapyd_hostname, self._scrapyd_port))
         data = json.loads(resp.read().decode('utf-8'))
         if 'pending' in data:
             for item in data['pending']:
