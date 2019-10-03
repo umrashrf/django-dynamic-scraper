@@ -36,7 +36,7 @@ class TaskUtils(object):
         params = urllib.parse.urlencode(param_dict)
         headers = {"Content-type": "application/x-www-form-urlencoded", "Accept": "text/plain"}
         conn_string = '{}:{}'.format(self._scrapyd_hostname, self._scrapyd_port)
-        logging.debug('Connecting to %s', conn_string)
+        logging.info('Connecting to %s', conn_string)
         conn = http.client.HTTPConnection(conn_string)
         conn.request("POST", "/schedule.json", params, headers)
         conn.getresponse()
@@ -46,7 +46,7 @@ class TaskUtils(object):
         # Ommit scheduling new jobs if there are still pending jobs for same spider
         conn_string = 'http://{}:{}/listjobs.json?project=default'.format(
                         self._scrapyd_hostname, self._scrapyd_port)
-        logging.debug('Connecting to %s', conn_string)
+        logging.info('Connecting to %s', conn_string)
         resp = urllib.request.urlopen(conn_string)
         data = json.loads(resp.read().decode('utf-8'))
         if 'pending' in data:
